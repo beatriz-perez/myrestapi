@@ -4,7 +4,7 @@ require('dotenv').config()
 var express = require('express');
 var bodyParser = require('body-parser');
 var packageJSON = require('../package.json');
-var catsModule = require('./cats-module');
+var tasksModule = require('./tasks-module');
 const database = require('./database');
 
 var app = express();
@@ -18,10 +18,10 @@ app.get('/', function (req, res) {
     });
 });
 
-app.get('/cats', function (req, res) {
-    catsModule.getCats()
-        .then(cats => {
-            res.send(cats);
+app.get('/tasks', function (req, res) {
+    tasksModule.getTasks()
+        .then(tasks => {
+            res.send(tasks);
         })
         .catch(error => {
             res.status(500).send({
@@ -29,8 +29,8 @@ app.get('/cats', function (req, res) {
             })
         })
 });
-app.post('/cats', function(req, res){
-    catsModule.addCat(req.body)
+app.post('/tasks', function(req, res){
+    tasksModule.addTask(req.body)
         .then(result => {
             res.send(result);
         })
@@ -41,8 +41,8 @@ app.post('/cats', function(req, res){
         })
 });
 
-app.get('/cats/:catId', function(req, res){
-    catsModule.getCatById(req.params.catId)
+app.get('/tasks/:taskId', function(req, res){
+    tasksModule.getTaskById(req.params.taskId)
         .then(result => {
             if(!result) {
                 res.status(404).json({
@@ -58,8 +58,8 @@ app.get('/cats/:catId', function(req, res){
         })
 });
 
-app.delete('/cats/:catId', function(req, res){
-    catsModule.deleteCatById(req.params.catId)
+app.delete('/tasks/:taskId', function(req, res){
+    tasksModule.deleteTaskById(req.params.taskId)
         .then(result => {
             res.json({
                 deleted: true
@@ -72,8 +72,8 @@ app.delete('/cats/:catId', function(req, res){
         })
 });
 
-app.put('/cats/:catId', function(req, res){
-    catsModule.updateCatById(req.params.catId, req.body)
+app.put('/tasks/:taskId', function(req, res){
+    tasksModule.updateTaskById(req.params.taskId, req.body)
         .then(result => {
             res.json({
                 updated: true
@@ -92,8 +92,8 @@ app.put('/cats/:catId', function(req, res){
 database.connect()
 .then(() => {
     console.log('Database connected!')
-    app.listen(3004, function () {
-        console.log('Example app listening on port 3004!');
+    app.listen(3010, function () {
+        console.log('Example app listening on port 3010!');
     });            
 }) 
 .catch (error => {

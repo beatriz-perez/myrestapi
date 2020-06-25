@@ -13,9 +13,9 @@ var mongodb = require('mongodb');
 //     }
 // ];
 
-function getCats() {
+function getTasks() {
     return new Promise((resolve, reject) => {
-        database.db().collection('cats').find().toArray((err, docs) => {
+        database.db().collection('tasks').find().toArray((err, docs) => {
             if (err) {
                 reject(err)
             } else {
@@ -25,9 +25,9 @@ function getCats() {
     })
 }
 
-function addCat(cat) {
+function addTask(task) {
     return new Promise((resolve, reject) => {
-        database.db().collection('cats').insertOne(cat,(err, result) => {
+        database.db().collection('tasks').insertOne(task,(err, result) => {
             if (err) {
                 reject(err)
             } else {
@@ -37,10 +37,10 @@ function addCat(cat) {
     })
 };
 
-function getCatById(id) {
-    console.log('Finding cat', id);
+function getTaskById(id) {
+    console.log('Finding task', id);
     return new Promise((resolve, reject) => {
-        database.db().collection('cats').findOne({
+        database.db().collection('tasks').findOne({
             _id: new mongodb.ObjectID(id)
         },(err, result) => {
             if (err) {
@@ -52,9 +52,9 @@ function getCatById(id) {
     })
 };
 
-function deleteCatById(id) {
+function deleteTaskById(id) {
     return new Promise((resolve, reject) => {
-        database.db().collection('cats').deleteOne({
+        database.db().collection('tasks').deleteOne({
             _id: new mongodb.ObjectID(id)
         },(err, result) => {
             if (err) {
@@ -66,9 +66,9 @@ function deleteCatById(id) {
     })
 };
 
-function updateCatById(id, data) {
+function updateTaskById(id, data) {
     return new Promise((resolve, reject) => {
-        database.db().collection('cats').updateOne({
+        database.db().collection('tasks').updateOne({
             _id: new mongodb.ObjectID(id)
         }, { $set: data }, (err, result) => {
             if (err) {
@@ -82,9 +82,9 @@ function updateCatById(id, data) {
 
 
 module.exports = {
-    getCats,
-    addCat,
-    getCatById,
-    deleteCatById,
-    updateCatById
+    getTasks,
+    addTask,
+    getTaskById,
+    deleteTaskById,
+    updateTaskById
 };
