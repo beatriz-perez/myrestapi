@@ -89,11 +89,15 @@ app.put('/tasks/:taskId', function(req, res){
 
 // Connetc to DB
 
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8000;
+}
 database.connect()
 .then(() => {
     console.log('Database connected!')
-    app.listen(3010, function () {
-        console.log('Example app listening on port 3010!');
+    app.listen(port, function () {
+        console.log('Example app listening on port 8000!');
     });            
 }) 
 .catch (error => {
