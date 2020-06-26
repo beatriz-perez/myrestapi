@@ -1,5 +1,6 @@
 {
   "name": "my-res-api",
+  "homepage": "./",
   "version": "0.0.1",
   "description": "una api rest que mola",
   "main": "src/index.js",
